@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
-import { UseVideoHlsType } from "../@types/hooks/UseVideoHls.model";
+import { UseVideoHlsType } from "../@types/hooks/UseVideoHlsType";
 
 const isSupportedPlatform = Hls.isSupported();
 
