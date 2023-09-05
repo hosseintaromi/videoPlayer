@@ -1,9 +1,9 @@
-import { useVideoHls } from "../hooks/useVideoHls";
+import { useVideoHls } from "../../hooks/useVideoHls";
 import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import { theme } from "../theme";
-import { useCallback, useImperativeHandle } from "react";
-import { HlsPlayerPropsType } from "../@types/HlsPlayerType";
+import { theme } from "../../theme";
+import { useCallback, useEffect, useImperativeHandle } from "react";
+import { HlsPlayerPropsType } from "../../@types/HlsPlayerType";
 /*
 ui components
 */
@@ -36,8 +36,14 @@ const Button = styled.button({
 export const HlsPlayer = ({
   customTheme,
   controllerRef,
+  src,
+  controls = false,
+  loop = false,
+  rightContainer = null,
+  muted = false,
+  poster,
+  onPlay,
 }: HlsPlayerPropsType) => {
-  const src = "https://cdn.theoplayer.com/video/elephants-dream/playlist.m3u8";
   const { videoRef, isSupportedPlatform } = useVideoHls({
     src,
   });
@@ -64,8 +70,22 @@ export const HlsPlayer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const initVideo = (el: HTMLVideoElement) => {
+    if (!el) return;
+
+    el.onplay = () => {
+      if (onPlay) onPlay();
+    };
+  };
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+    initVideo(videoEl);
+  }, []);
   return (
     <ThemeProvider theme={customTheme ? customTheme : theme}>
+      <div>{rightContainer}</div>
       <VideoWrapper>
         {isSupportedPlatform ? (
           <Video
@@ -73,7 +93,10 @@ export const HlsPlayer = ({
             ref={videoRef}
             id="main-video"
             className="m-video videoBackground"
-            controls={false}
+            controls={controls}
+            loop={loop}
+            muted={muted}
+            poster={poster}
           />
         ) : (
           <Video
@@ -82,7 +105,10 @@ export const HlsPlayer = ({
             src={src}
             id="main-video"
             className="m-video videoBackground"
-            controls={false}
+            controls={controls}
+            loop={loop}
+            muted={muted}
+            poster={poster}
           />
         )}
         <Button onClick={playClicked}>
