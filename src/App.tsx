@@ -1,22 +1,35 @@
 import { useRef } from "react";
-import { HlsPlayer } from "./components/HlsPlayer";
+import { HlsPlayer } from "./components/package/HlsPlayer";
 import { ControllerRefType } from "./@types/HlsPlayerType";
 const App = () => {
   const controllerRef = useRef<ControllerRefType>({
     changeSpeed: () => {},
     play: () => {},
   });
+  const right = () => <p>hello</p>;
+
+  const onPlay = () => {
+    console.log("onplay");
+  };
+  const theme = {
+    colors: {
+      primary: "yellow",
+      videoBg: "#000",
+    },
+  };
 
   return (
     <>
       <HlsPlayer
+        src="https://cdn.theoplayer.com/video/elephants-dream/playlist.m3u8"
+        controls={false}
+        loop={true}
+        muted={false}
         controllerRef={controllerRef}
-        customTheme={{
-          colors: {
-            primary: "yellow",
-            videoBg: "#000",
-          },
-        }}
+        rightContainer={right()}
+        onPlay={onPlay}
+        customTheme={theme}
+        poster="https://static.namava.ir/Content/Upload/Images/ad00cc89-74fe-4264-9210-9571d4c6cb42.jpg?anchor=middlecenter&crop=auto&scale=both&w=1920&h=900"
       />
       <button
         onClick={() => {
@@ -24,20 +37,6 @@ const App = () => {
         }}
       >
         speed X 4
-      </button>
-      <button
-        onClick={() => {
-          controllerRef.current.play(true);
-        }}
-      >
-        play
-      </button>
-      <button
-        onClick={() => {
-          controllerRef.current.play(false);
-        }}
-      >
-        pause
       </button>
     </>
   );
