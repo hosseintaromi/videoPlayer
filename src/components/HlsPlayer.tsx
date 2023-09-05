@@ -1,10 +1,12 @@
 import { useVideoHls } from "../hooks/useVideoHls";
 import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ThemeType, theme } from "../theme";
-import { RefObject, useCallback, useImperativeHandle } from "react";
-import { ControllerRefType } from "../@types/HlsPlayerType";
-
+import { theme } from "../theme";
+import { useCallback, useImperativeHandle } from "react";
+import { HlsPlayerPropsType } from "../@types/HlsPlayerType";
+/*
+ui components
+*/
 const VideoWrapper = styled.div(({ theme }) => ({
   height: "100%",
   width: "100%",
@@ -25,20 +27,16 @@ const Button = styled.button({
   border: "3px solid #fff",
   borderRadius: "50%",
   color: "white",
+  padding: "20px",
   "& > img": {
-    display: "none",
+    width: "30px",
+    height: "30px",
   },
-  // padding: "30px",
 });
 export const HlsPlayer = ({
   customTheme,
   controllerRef,
-}: {
-  customTheme?: ThemeType;
-  controllerRef?: RefObject<ControllerRefType>;
-}) => {
-  // const { controllerRef } = useControllerContext();
-
+}: HlsPlayerPropsType) => {
   const src = "https://cdn.theoplayer.com/video/elephants-dream/playlist.m3u8";
   const { videoRef, isSupportedPlatform } = useVideoHls({
     src,
@@ -46,8 +44,13 @@ export const HlsPlayer = ({
 
   useImperativeHandle(controllerRef, () => ({
     changeSpeed: handelChangeSpeed,
+    play: handelPlayAction,
   }));
 
+  const handelPlayAction = (value: boolean) => {
+    if (value) videoRef?.current?.play();
+    else videoRef?.current?.pause();
+  };
   const handelChangeSpeed = (value: number) => {
     if (videoRef?.current?.playbackRate) videoRef.current.playbackRate = value;
   };
@@ -82,7 +85,9 @@ export const HlsPlayer = ({
             controls={false}
           />
         )}
-        <Button onClick={playClicked}>play</Button>
+        <Button onClick={playClicked}>
+          <img src="/assets/icons/play.svg" alt="" />
+        </Button>
       </VideoWrapper>
     </ThemeProvider>
   );

@@ -4,6 +4,7 @@ import { ControllerRefType } from "./@types/HlsPlayerType";
 const App = () => {
   const controllerRef = useRef<ControllerRefType>({
     changeSpeed: () => {},
+    play: () => {},
   });
 
   return (
@@ -22,7 +23,21 @@ const App = () => {
           controllerRef.current.changeSpeed(4);
         }}
       >
-        vlkdnviosnvsdnviosdv
+        speed X 4
+      </button>
+      <button
+        onClick={() => {
+          controllerRef.current.play(true);
+        }}
+      >
+        play
+      </button>
+      <button
+        onClick={() => {
+          controllerRef.current.play(false);
+        }}
+      >
+        pause
       </button>
     </>
   );
