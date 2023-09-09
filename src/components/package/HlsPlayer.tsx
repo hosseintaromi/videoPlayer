@@ -55,6 +55,7 @@ const TopLeftWrapper = styled.div({
   left: "0",
   justifyContent: "left",
 });
+
 export const HlsPlayer = ({
   customTheme,
   controllerRef,
@@ -63,6 +64,7 @@ export const HlsPlayer = ({
   loop = false,
   topRightContainer = null,
   topLeftContainer = null,
+
   muted = false,
   poster,
   onPlay,
@@ -111,6 +113,7 @@ export const HlsPlayer = ({
       <VideoWrapper>
         <TopRightWrapper>{topRightContainer}</TopRightWrapper>
         <TopLeftWrapper>{topLeftContainer}</TopLeftWrapper>
+
         {isSupportedPlatform ? (
           <Video
             playsInline
