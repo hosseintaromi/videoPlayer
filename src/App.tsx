@@ -9,7 +9,6 @@ const App = () => {
   const right = () => <p>hello</p>;
   const left = () => <p>bye</p>;
 
-
   const onPlay = () => {
     console.log("onplay");
   };
@@ -30,7 +29,6 @@ const App = () => {
         controllerRef={controllerRef}
         topRightContainer={right()}
         topLeftContainer={left()}
-
         onPlay={onPlay}
         customTheme={theme}
         poster="https://static.namava.ir/Content/Upload/Images/ad00cc89-74fe-4264-9210-9571d4c6cb42.jpg?anchor=middlecenter&crop=auto&scale=both&w=1920&h=900"
@@ -43,7 +41,6 @@ const App = () => {
       >
         speed X 4
       </button> */}
-
     </>
   );
 };

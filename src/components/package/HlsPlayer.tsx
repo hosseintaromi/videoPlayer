@@ -107,6 +107,7 @@ export const HlsPlayer = ({
     const videoEl = videoRef.current;
     if (!videoEl) return;
     initVideo(videoEl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <ThemeProvider theme={customTheme ? customTheme : theme}>
