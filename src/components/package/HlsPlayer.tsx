@@ -33,13 +33,38 @@ const Button = styled.button({
     height: "30px",
   },
 });
+const TopRightWrapper = styled.div({
+  zIndex: "1",
+  top: "0",
+  display: "flex",
+  position: "absolute",
+  height: "50%",
+  width: "50%",
+  right: "0",
+  justifyContent: "right",
+  color: "white",
+});
+const TopLeftWrapper = styled.div({
+  color: "white",
+  zIndex: "1",
+  top: "0",
+  display: "flex",
+  position: "absolute",
+  height: "50%",
+  width: "50%",
+  left: "0",
+  justifyContent: "left",
+});
+
 export const HlsPlayer = ({
   customTheme,
   controllerRef,
   src,
   controls = false,
   loop = false,
-  rightContainer = null,
+  topRightContainer = null,
+  topLeftContainer = null,
+
   muted = false,
   poster,
   onPlay,
@@ -85,8 +110,10 @@ export const HlsPlayer = ({
   }, []);
   return (
     <ThemeProvider theme={customTheme ? customTheme : theme}>
-      <div>{rightContainer}</div>
       <VideoWrapper>
+        <TopRightWrapper>{topRightContainer}</TopRightWrapper>
+        <TopLeftWrapper>{topLeftContainer}</TopLeftWrapper>
+
         {isSupportedPlatform ? (
           <Video
             playsInline
