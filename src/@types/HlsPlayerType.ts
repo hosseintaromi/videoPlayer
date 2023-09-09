@@ -23,5 +23,6 @@ export type HlsPlayerPropsType = {
   onSeeking?: () => void;
   onSeeked?: () => void;
   onEnd?: () => void;
-  rightContainer?: ReactNode | null;
+  topRightContainer?: ReactNode | null;
+  topLeftContainer?: ReactNode | null;
 };
